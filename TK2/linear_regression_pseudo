@@ -1,0 +1,31 @@
+BEGIN
+  IMPORT library pandas, numpy, scikit-learn)
+
+  // Process the Data
+  LOAD data dari file "data_covid_jakbar.csv" ke dalam tabel 'data'
+  CREATE kolom baru 'Sembuh' di tabel 'data'
+  SET 'Sembuh' = 'Positif' - ('Meninggal' + 'Isolasi_Mandiri')
+  
+  // Identify Variable
+  SET variabel independen X = kolom 'Positif' dari 'data'
+  SET variabel dependen y = kolom 'Sembuh' dari 'data'
+  
+  // Model
+  CREATE sebuah model Regresi Linear
+  TRAIN model menggunakan data X dan y
+  
+  // Analyze
+  GET koefisien (m) dari model
+  GET konstanta (c) dari model
+  PRINT "Persamaan regresi: y = {m}x + {c}"
+  
+  // Evaluate
+  CREATE y_prediksi with X using model
+  CALCULATE MSE (Mean Squared Error) antara y (aktual) dan y_prediksi
+  CALCULATE RMSE (Root Mean Squared Error) dari akar kuadrat MSE
+  CALCULATE R-squared (akurasi) dari model terhadap data X dan y
+  
+  PRINT "Nilai RMSE: {RMSE}"
+  PRINT "Akurasi (R-squared): {R-squared}"
+
+END
